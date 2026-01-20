@@ -1,12 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-  IsDate,
-  IsEnum,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MinDate,
-} from 'class-validator';
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MinDate } from 'class-validator';
 
 export enum BookingStatus {
   PENDING = 'pending',

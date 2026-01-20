@@ -1,25 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, UseGuards, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
-import {
-  CreateCarDto,
-  CreateMotorbikeDto,
-  CreateHelicopterDto,
-} from './dto/create-vehicle.dto';
-import {
-  UpdateCarDto,
-  UpdateMotorbikeDto,
-  UpdateHelicopterDto,
-} from './dto/update-vehicle.dto';
+import { CreateCarDto, CreateMotorbikeDto, CreateHelicopterDto } from './dto/create-vehicle.dto';
+import { UpdateCarDto, UpdateMotorbikeDto, UpdateHelicopterDto } from './dto/update-vehicle.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('vehicles')
+@UseGuards(JwtAuthGuard)
 export class VehiclesController {
   constructor(private readonly vehiclesService: VehiclesService) {}
 

@@ -5,9 +5,7 @@ import { UpdateBookingDto } from './dto/update-booking.dto';
 @Injectable()
 export class BookingsService {
   create(createBookingDto: CreateBookingDto) {
-    return (
-      'This action adds a new booking for vehicle ' + createBookingDto.vehicleId
-    );
+    return 'This action adds a new booking for vehicle ' + createBookingDto.vehicleId;
   }
 
   findAll() {
