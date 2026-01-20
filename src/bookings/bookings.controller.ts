@@ -5,6 +5,7 @@ import { UpdateBookingDto } from './dto/update-booking.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { userRoles } from 'src/users/entities/user.entity';
 
 @Controller('bookings')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -17,7 +18,7 @@ export class BookingsController {
   }
 
   @Get()
-  @Roles('admin')
+  @Roles(userRoles.ADMIN)
   findAll() {
     return this.bookingsService.findAll();
   }

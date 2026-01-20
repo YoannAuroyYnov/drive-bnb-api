@@ -1,4 +1,13 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { userRoles } from '../entities/user.entity';
 
 export class CreateUserDto {
   @IsEmail()
@@ -22,4 +31,8 @@ export class CreateUserDto {
   @IsBoolean()
   @IsOptional()
   is2FAEnabled?: boolean;
+
+  @IsEnum(userRoles, { each: true })
+  @IsOptional()
+  roles?: userRoles[];
 }
