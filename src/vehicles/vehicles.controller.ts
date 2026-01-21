@@ -3,13 +3,17 @@ import { VehiclesService } from './vehicles.service';
 import { CreateCarDto, CreateMotorbikeDto, CreateHelicopterDto } from './dto/create-vehicle.dto';
 import { UpdateCarDto, UpdateMotorbikeDto, UpdateHelicopterDto } from './dto/update-vehicle.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { userRoles } from 'src/users/entities/user.entity';
 
 @Controller('vehicles')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class VehiclesController {
   constructor(private readonly vehiclesService: VehiclesService) {}
 
   @Post()
+  @Roles(userRoles.ADMIN, userRoles.OWNER)
   create(
     @Body()
     createVehicleDto: CreateCarDto | CreateMotorbikeDto | CreateHelicopterDto,
@@ -28,6 +32,7 @@ export class VehiclesController {
   }
 
   @Patch(':id')
+  @Roles(userRoles.ADMIN, userRoles.OWNER)
   update(
     @Param('id') id: string,
     @Body()
@@ -37,6 +42,7 @@ export class VehiclesController {
   }
 
   @Delete(':id')
+  @Roles(userRoles.ADMIN, userRoles.OWNER)
   remove(@Param('id') id: string) {
     return this.vehiclesService.remove(+id);
   }

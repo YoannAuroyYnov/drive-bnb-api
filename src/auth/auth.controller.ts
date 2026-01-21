@@ -1,20 +1,42 @@
-import { Controller, UseGuards, Post, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  UseGuards,
+  Post,
+  Body,
+  Req,
+  Param,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RequestMagicLinkDto, VerifyMagicLinkDto, Verify2FADto } from './dto/auth.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { RequestWithUser } from './interfaces/resquest-with-user.interface';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('magic-link/request')
-  requestMagicLink(@Body() RequestMagicLinkDto: RequestMagicLinkDto) {
-    return this.authService.requestMagicLink(RequestMagicLinkDto.email);
+  requestMagicLink(@Body() requestMagicLinkDto: RequestMagicLinkDto) {
+    return this.authService.requestMagicLink(requestMagicLinkDto.email);
   }
 
   @Post('magic-link/verify')
+  @HttpCode(HttpStatus.OK)
   verifyMagicLink(@Body() verifyMagicLinkDto: VerifyMagicLinkDto) {
     return this.authService.verifyMagicLink(verifyMagicLinkDto.token);
+  }
+
+  @Post('refresh')
+  @UseGuards(JwtRefreshGuard)
+  @HttpCode(HttpStatus.OK)
+  refreshTokens(@Req() req: RequestWithUser) {
+    const { userId, refreshToken } = req.user;
+    if (!refreshToken) return;
+
+    return this.authService.refreshTokens(userId, refreshToken);
   }
 
   @Post('2fa/verify')
