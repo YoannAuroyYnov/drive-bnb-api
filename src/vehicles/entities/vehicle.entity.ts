@@ -12,6 +12,21 @@ import { VehicleTypes } from './vehicle-types.entity';
 import { User } from '../../users/entities/user.entity';
 import { Booking } from 'src/bookings/entities/booking.entity';
 
+// export enum FuelType {
+//   GASOLINE = 'gasoline',
+//   DIESEL = 'diesel',
+//   ELECTRIC = 'electric',
+//   HYBRID = 'hybrid',
+//   JET_FUEL = 'jet_fuel',
+//   HYDROGEN = 'hydrogen',
+//   NGV = 'ngv',
+//   LPG = 'lpg',
+//   BIOETHANOL = 'bioethanol',
+//   BIODIESEL = 'biodiesel',
+//   EFUEL = 'efuel',
+// }
+// To be updated later with a proper enum management
+
 interface VehicleDetails {
   requiredLicense?: string;
   fuelType: string;

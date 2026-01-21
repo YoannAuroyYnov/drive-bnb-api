@@ -12,12 +12,7 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
-
-enum VehicleType {
-  CAR = 'car',
-  MOTORBIKE = 'motorbike',
-  HELICOPTER = 'helicopter',
-}
+import { VehicleTypeName } from '../entities/vehicle-types.entity';
 
 class VehicleDetailsDto {
   @IsString()
@@ -118,9 +113,9 @@ class CreateVehicleDto {
 
 export class CreateCarDto extends CreateVehicleDto {
   @IsString()
-  @IsIn([VehicleType.CAR])
+  @IsIn([VehicleTypeName.CAR])
   @IsNotEmpty()
-  type: VehicleType.CAR;
+  type: VehicleTypeName.CAR;
 
   @IsObject()
   @IsNotEmpty()
@@ -131,9 +126,9 @@ export class CreateCarDto extends CreateVehicleDto {
 
 export class CreateMotorbikeDto extends CreateVehicleDto {
   @IsString()
-  @IsIn([VehicleType.MOTORBIKE])
+  @IsIn([VehicleTypeName.MOTORBIKE])
   @IsNotEmpty()
-  type: VehicleType.MOTORBIKE;
+  type: VehicleTypeName.MOTORBIKE;
 
   @IsObject()
   @IsNotEmpty()
@@ -144,9 +139,9 @@ export class CreateMotorbikeDto extends CreateVehicleDto {
 
 export class CreateHelicopterDto extends CreateVehicleDto {
   @IsString()
-  @IsIn([VehicleType.HELICOPTER])
+  @IsIn([VehicleTypeName.HELICOPTER])
   @IsNotEmpty()
-  type: VehicleType.HELICOPTER;
+  type: VehicleTypeName.HELICOPTER;
 
   @IsObject()
   @IsNotEmpty()

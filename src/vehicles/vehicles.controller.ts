@@ -1,4 +1,14 @@
-import { Controller, UseGuards, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  UseGuards,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
 import { CreateCarDto, CreateMotorbikeDto, CreateHelicopterDto } from './dto/create-vehicle.dto';
 import { UpdateCarDto, UpdateMotorbikeDto, UpdateHelicopterDto } from './dto/update-vehicle.dto';
@@ -6,6 +16,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { userRoles } from 'src/users/entities/user.entity';
+import { VehiclesFilterParamsDto } from './dto/vehicle-filter-params.dto';
 
 @Controller('vehicles')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -22,13 +33,13 @@ export class VehiclesController {
   }
 
   @Get()
-  findAll() {
-    return this.vehiclesService.findAll();
+  findAll(@Query() query: VehiclesFilterParamsDto) {
+    return this.vehiclesService.findAll(query);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.vehiclesService.findOne(+id);
+    return this.vehiclesService.findOne(id);
   }
 
   @Patch(':id')
@@ -38,12 +49,12 @@ export class VehiclesController {
     @Body()
     updateVehicleDto: UpdateCarDto | UpdateMotorbikeDto | UpdateHelicopterDto,
   ) {
-    return this.vehiclesService.update(+id, updateVehicleDto);
+    return this.vehiclesService.update(id, updateVehicleDto);
   }
 
   @Delete(':id')
   @Roles(userRoles.ADMIN, userRoles.OWNER)
   remove(@Param('id') id: string) {
-    return this.vehiclesService.remove(+id);
+    return this.vehiclesService.remove(id);
   }
 }
