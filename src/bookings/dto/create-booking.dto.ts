@@ -1,12 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MinDate } from 'class-validator';
-
-export enum BookingStatus {
-  PENDING = 'pending',
-  CONFIRMED = 'confirmed',
-  CANCELLED = 'cancelled',
-}
-
+import { IsDate, IsNotEmpty, IsOptional, IsString, MinDate } from 'class-validator';
 export class CreateBookingDto {
   @IsString()
   @IsNotEmpty()
@@ -27,10 +20,6 @@ export class CreateBookingDto {
   @IsNotEmpty()
   @MinDate(new Date())
   endDate: Date;
-
-  @IsEnum(BookingStatus)
-  @IsOptional()
-  status?: BookingStatus;
 
   @IsString()
   @IsOptional()

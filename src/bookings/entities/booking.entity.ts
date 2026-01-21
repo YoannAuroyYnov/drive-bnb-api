@@ -10,6 +10,14 @@ import {
 import { Vehicle } from '../../vehicles/entities/vehicle.entity';
 import { User } from 'src/users/entities/user.entity';
 
+export enum BookingStatus {
+  PENDING = 'pending',
+  DRAFT = 'draft',
+  CONFIRMED = 'confirmed',
+  CANCELLED = 'cancelled',
+  COMPLETED = 'completed',
+}
+
 @Entity('bookings')
 export class Booking {
   @PrimaryGeneratedColumn('uuid')
@@ -21,8 +29,8 @@ export class Booking {
   @Column({ name: 'end_date', type: 'timestamp' })
   endDate: Date;
 
-  @Column({ type: 'enum', enum: ['pending', 'confirmed', 'cancelled'], default: 'pending' })
-  status: 'pending' | 'confirmed' | 'cancelled';
+  @Column({ type: 'enum', enum: BookingStatus, default: BookingStatus.PENDING })
+  status: BookingStatus;
 
   @Column({ type: 'text', nullable: true })
   notes?: string;
