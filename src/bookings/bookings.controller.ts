@@ -16,9 +16,10 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { userRoles } from 'src/users/entities/user.entity';
 import { BookingsFilterParamsDto } from './dto/bookings-filter-params.dto';
 import { ClerkAuthGuard } from 'src/auth/guards/clerk-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('bookings')
-@UseGuards(ClerkAuthGuard)
+@UseGuards(ClerkAuthGuard, RolesGuard)
 export class BookingsController {
   constructor(private readonly bookingsService: BookingsService) {}
 

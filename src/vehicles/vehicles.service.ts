@@ -38,7 +38,6 @@ export class VehiclesService {
       order: { updatedAt: 'DESC' },
     });
 
-    console.log('Featured vehicles fetched:', result);
     return result;
   }
 }
