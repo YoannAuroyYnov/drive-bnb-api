@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Vehicle } from '../../vehicles/entities/vehicle.entity';
-import { Booking } from 'src/bookings/entities/booking.entity';
+import { Booking } from '../../bookings/entities/booking.entity';
 
 export enum userRoles {
   STANDARD = 'standard',
@@ -34,7 +34,12 @@ export class User {
   @Column({ name: 'is_2fa_enabled', type: 'boolean', default: false })
   is2FAEnabled: boolean;
 
-  @Column({ name: 'current_hashed_refresh_token', type: 'varchar', length: 255, nullable: true })
+  @Column({
+    name: 'current_hashed_refresh_token',
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+  })
   currentHashedRefreshToken?: string;
 
   @Column({

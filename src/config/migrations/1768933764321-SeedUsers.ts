@@ -6,8 +6,8 @@ export class SeedUsers1768933764321 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `INSERT INTO "users" (id, email, "firstName", "lastName", "password") VALUES ($1, $2, $3, $4, $5)`,
-      [this.userId, 'yoann.ar@icloud.com', 'Yoann', 'Ar', 'unsecured_password'],
+      `INSERT INTO "users" (id, email, "first_name", "last_name") VALUES ($1, $2, $3, $4)`,
+      [this.userId, 'yoann.ar@icloud.com', 'Yoann', 'Ar'],
     );
   }
 

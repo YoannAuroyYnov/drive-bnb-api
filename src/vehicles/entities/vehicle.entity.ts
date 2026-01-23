@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { VehicleTypes } from './vehicle-types.entity';
 import { User } from '../../users/entities/user.entity';
-import { Booking } from 'src/bookings/entities/booking.entity';
+import { Booking } from '../../bookings/entities/booking.entity';
 
 // export enum FuelType {
 //   GASOLINE = 'gasoline',
@@ -80,11 +80,27 @@ export class Vehicle {
   @Column({ type: 'jsonb' })
   details: CarDetails | MotorbikeDetails | HelicopterDetails;
 
+  @Column({ type: 'varchar', length: 50, default: 'Paris, FR' })
+  location: string;
+
+  @Column({ type: 'float', default: 5.0 })
+  rating: number;
+
+  @Column({ name: 'reviews_count', type: 'int', default: 0 })
+  reviewsCount: number;
+
+  @Column({ name: 'image_url', type: 'text', nullable: true })
+  imageUrl?: string;
+
+  // Added timestamps
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  // Relations
 
   @ManyToOne(() => VehicleTypes, (vehicleType) => vehicleType.vehicles, {
     nullable: false,

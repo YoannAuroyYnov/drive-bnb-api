@@ -1,14 +1,15 @@
-import { IsOptional, IsIn, IsEnum, IsBoolean } from 'class-validator';
+import { IsOptional, IsIn, IsEnum, IsDate } from 'class-validator';
 import { VehicleTypeName } from '../entities/vehicle-types.entity';
 
 export class VehiclesFilterParamsDto {
-  @IsOptional()
   @IsEnum(VehicleTypeName)
-  type?: VehicleTypeName;
+  type: VehicleTypeName;
 
-  @IsOptional()
-  @IsBoolean()
-  isAvailable?: boolean;
+  @IsDate()
+  from: Date;
+
+  @IsDate()
+  to: Date;
 
   @IsOptional()
   @IsIn(['ASC', 'DESC'])

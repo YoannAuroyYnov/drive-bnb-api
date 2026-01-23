@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Vehicle } from '../../vehicles/entities/vehicle.entity';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 
 export enum BookingStatus {
   PENDING = 'pending',
