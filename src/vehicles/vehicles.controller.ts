@@ -1,18 +1,19 @@
 import { Controller, UseGuards, Get, Param, Query } from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { ClerkAuthGuard } from 'src/auth/guards/clerk-auth.guard';
 import { VehiclesFilterParamsDto } from './dto/vehicle-filter-params.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 
 @Controller('vehicles')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(ClerkAuthGuard)
 export class VehiclesController {
   constructor(private readonly vehiclesService: VehiclesService) {}
 
   @Public()
   @Get()
-  findAll() {
+  findAll(@CurrentUser() user: any) {
+    console.log('Utilisateur actuel: ', user);
     return this.vehiclesService.findAll();
   }
 
