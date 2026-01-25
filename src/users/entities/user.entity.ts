@@ -31,6 +31,12 @@ export class User {
   @Column({ type: 'varchar', length: 20, nullable: true })
   phone?: string;
 
+  @Column({ type: 'float', default: 5.0 })
+  rating: number;
+
+  @Column({ name: 'reviews_count', type: 'int', default: 0 })
+  reviewsCount: number;
+
   @Column({ name: 'is_2fa_enabled', type: 'boolean', default: false })
   is2FAEnabled: boolean;
 
