@@ -13,7 +13,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Selenium Grey / Kryptonite',
         'LM94',
         'c3a2adde-8df8-427c-892a-eb4320f8259c',
-        3500.00,
+        3750.00,
         true,
         'd9eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
         '{"requiredLicense": "Licence Pilote FIA", "fuelType": "Hybride essence", "seats": 1, "mileage": 3000, "description": "Hypercar d endurance du WEC. V6 biturbo 2.6L hybride, 680 ch, design sans aileron arrière distinctif.", "transmission": "Séquentielle 7 rapports", "doors": 2, "enginePowerHp": 680}',
@@ -49,7 +49,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Stainless Steel',
         'OUTATIME',
         'c3a2adde-8df8-427c-892a-eb4320f8259c',
-        8800.00,
+        4400.00,
         true,
         'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
         '{"requiredLicense": "Permis B", "fuelType": "Plutonium / Déchets", "seats": 2, "mileage": 88000, "description": "La légendaire machine à voyager dans le temps de Doc Brown. Convecteur temporel inclus. Attention : s active à 88 mph.", "transmission": "Manuelle 5 rapports", "doors": 2, "enginePowerHp": 130}',
@@ -67,7 +67,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Gris Nuancé',
         '8896 SW 78',
         'c3a2adde-8df8-427c-892a-eb4320f8259c',
-        930.00,
+        90.00,
         true,
         'd3eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
         '{"requiredLicense": "Permis B", "fuelType": "Essence", "seats": 4, "mileage": 380400, "description": "La légendaire Vega Missyl d Etienne le Bolideur. Attention à l accélération, elle a failli taper le 380 sur le parking. Ne pas confondre la jauge d essence avec le compteur de vitesse.", "transmission": "Manuelle", "doors": 4, "enginePowerHp": 930}',
@@ -103,7 +103,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Carbon Exposed',
         'PA-006-UT',
         'c3a2adde-8df8-427c-892a-eb4320f8259c',
-        9500.00,
+        6250.00,
         true,
         'b7eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
         '{"requiredLicense": "Permis B", "fuelType": "Essence", "seats": 2, "mileage": 300, "description": "L art automobile pur : V12 biturbo AMG 864 ch, boîte manuelle 7 rapports, zéro hybridation. Une sculpture roulante.", "transmission": "Manuelle 7 rapports", "doors": 2, "enginePowerHp": 864}',
@@ -121,7 +121,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Dark Green / White',
         'MARINE-1',
         'e7884fdf-f957-48a1-8214-8435a59ae3e2',
-        15000.00,
+        18000.00,
         true,
         'f5eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
         '{"requiredLicense": "Licence pilote hélicoptère", "fuelType": "Kérosène Jet A", "seats": 14, "mileage": 5000, "description": "L hélicoptère présidentiel officiel des États-Unis. Sécurité maximale, intérieur ultra-luxe. Le transport le plus sécurisé au monde.", "maxPassengers": 14, "maxRangeKm": 1000}',
@@ -139,7 +139,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Desert Storm',
         'SNDR-008',
         'c3a2adde-8df8-427c-892a-eb4320f8259c',
-        450.00,
+        850.00,
         true,
         'a6eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
         '{"requiredLicense": "Permis B", "fuelType": "Hybride essence", "seats": 2, "mileage": 12000, "description": "Véhicule raid hybride inspiré du Dakar, tout-terrain extrême avec 360 ch", "transmission": "Séquentielle 6 rapports", "doors": 2, "enginePowerHp": 360}',
@@ -157,7 +157,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Rusted Metal',
         'TWD-DIXON',
         'b8095ab7-49b6-4028-a8fd-fb5ff7a67ce2',
-        450.00,
+        235.00,
         true,
         'e5eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
         '{"requiredLicense": "Permis A", "fuelType": "Essence", "seats": 1, "mileage": 50000, "description": "La légendaire moto de Daryl Dixon (The Walking Dead). Support d arbalète, sacoches en cuir usé et look post-apocalyptique authentique.", "engineCapacityCc": 750, "licenseCategory": "A"}',
@@ -229,7 +229,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         'Military Grey',
         'OE-XLB',
         'e7884fdf-f957-48a1-8214-8435a59ae3e2',
-        2200.00,
+        2900.00,
         true,
         'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         '{"requiredLicense": "Licence pilote hélicoptère", "fuelType": "Kérosène Jet A", "seats": 4, "mileage": 15000, "description": "Hélicoptère léger militaire compact, utilisé pour reconnaissance et transport rapide", "maxPassengers": 6, "maxRangeKm": 430}',
@@ -244,7 +244,6 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     // On doit d'abord supprimer les réservations liées pour éviter l'erreur de clé étrangère
-    await queryRunner.query(`DELETE FROM bookings`);
-    await queryRunner.query(`DELETE FROM vehicles`);
+    await queryRunner.query(`TRUNCATE TABLE "vehicles" CASCADE`);
   }
 }

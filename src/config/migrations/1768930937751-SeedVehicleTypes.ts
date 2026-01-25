@@ -11,6 +11,6 @@ export class SeedVehicleTypes1768930937751 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`TRUNCATE TABLE vehicle_types CASCADE`);
+    await queryRunner.query(`TRUNCATE TABLE "vehicle_types" CASCADE`);
   }
 }
