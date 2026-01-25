@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Param, Query } from '@nestjs/common';
+import { Controller, UseGuards, Get, Param, Query, ParseUUIDPipe } from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
 import { ClerkAuthGuard } from 'src/auth/guards/clerk-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -28,7 +28,7 @@ export class VehiclesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.vehiclesService.findOne(id);
   }
 }

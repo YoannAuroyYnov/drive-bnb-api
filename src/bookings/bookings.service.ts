@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBookingDto } from './dto/create-booking.dto';
@@ -47,10 +47,14 @@ export class BookingsService {
   }
 
   async findOne(id: string) {
-    return await this.bookingRepository.findOne({
+    const booking = await this.bookingRepository.findOne({
       where: { id },
-      relations: ['vehicle'],
+      relations: ['vehicle', 'user'],
     });
+
+    if (!booking) throw new NotFoundException(`Booking with id ${id} not found`);
+
+    return booking;
   }
 
   update(id: string, updateBookingDto: UpdateBookingDto) {
