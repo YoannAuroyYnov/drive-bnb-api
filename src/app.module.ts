@@ -7,6 +7,9 @@ import { BookingsModule } from './bookings/bookings.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailsModule } from './emails/emails.module';
+import { PaymentService } from './payment/payment.service';
+import { PaymentController } from './payment/payment.controller';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -33,8 +36,9 @@ import { EmailsModule } from './emails/emails.module';
         synchronize: true, // dev mode only
       }),
     }),
+    PaymentModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [PaymentController],
+  providers: [PaymentService],
 })
 export class AppModule {}

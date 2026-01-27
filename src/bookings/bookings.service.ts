@@ -55,8 +55,18 @@ export class BookingsService {
     return booking;
   }
 
+  async confirm(id: string) {
+    const booking = await this.bookingRepository.findOneByOrFail({ id });
+    booking.status = BookingStatus.CONFIRMED;
+    await this.bookingRepository.save(booking);
+    return booking;
+  }
+
   async update(id: string, updateBookingDto: UpdateBookingDto) {
-    const booking = await this.bookingRepository.preload({ id, ...updateBookingDto });
+    const booking = await this.bookingRepository.preload({
+      id,
+      ...updateBookingDto,
+    });
     if (!booking) throw new NotFoundException(`Booking with ID ${id} not found`);
 
     await this.bookingRepository.save(booking);

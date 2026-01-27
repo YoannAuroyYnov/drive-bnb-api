@@ -27,6 +27,11 @@ export class BookingsController {
     return this.bookingsService.create(createBookingDto);
   }
 
+  @Post('confirm/:id')
+  confirm(@Param('id', ParseUUIDPipe) id: string) {
+    return this.bookingsService.confirm(id);
+  }
+
   @Get()
   findAll(@Query() query: BookingsFilterParamsDto) {
     return this.bookingsService.findAll(query);
