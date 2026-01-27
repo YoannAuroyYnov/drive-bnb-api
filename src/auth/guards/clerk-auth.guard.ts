@@ -18,7 +18,7 @@ export class ClerkAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
 
-    if (!token && isPublic) {
+    if ((!token || token === 'null') && isPublic) {
       return true;
     }
 
