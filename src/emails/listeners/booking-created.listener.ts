@@ -30,22 +30,23 @@ export class BookingCreatedListener extends EventListener {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
+        hour: 'numeric',
       }),
       endDate: new Date(booking.endDate).toLocaleDateString('fr-FR', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
+        hour: 'numeric',
       }),
       // totalPrice: booking.totalPrice, // To be added later
-      subject: 'Votre réservation est confirmée !',
     };
 
     await this.sendEmail(
       clerkUser.emailAddresses[0].emailAddress,
       'booking-confirmation',
       context,
-      context.subject,
+      'Votre réservation est confirmée !',
     );
   }
 }

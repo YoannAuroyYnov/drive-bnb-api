@@ -5,80 +5,86 @@
     <title>Confirmation de réservation</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: 'Inter', Arial, sans-serif;
         line-height: 1.6;
-        color: #333;
+        color: #0e2a3f;
         max-width: 600px;
         margin: 0 auto;
         padding: 20px;
-      }
-      .header {
-        background-color: #4caf50;
-        color: white;
-        padding: 20px;
-        text-align: center;
-        border-radius: 5px 5px 0 0;
+        background-color: #f5f8fa;
       }
       .content {
-        background-color: #f9f9f9;
+        background-color: #ffffff;
         padding: 30px;
-        border: 1px solid #ddd;
-        border-top: none;
-        border-radius: 0 0 5px 5px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(14, 42, 63, 0.08);
       }
       .booking-details {
-        background-color: white;
-        padding: 20px;
-        margin: 20px 0;
-        border-radius: 5px;
-        border: 1px solid #e0e0e0;
+        background-color: #f5f8fa;
+        padding: 24px;
+        margin: 24px 0;
+        border-radius: 12px;
+        border: 1px solid #e8eef3;
       }
       .detail-row {
-        margin: 10px 0;
-        padding: 10px 0;
-        border-bottom: 1px solid #f0f0f0;
+        margin: 12px 0;
+        padding: 12px 0;
+        border-bottom: 1px solid #e8eef3;
       }
       .detail-row:last-child {
         border-bottom: none;
       }
       .label {
-        font-weight: bold;
-        color: #555;
+        font-weight: 600;
+        color: #0e2a3f;
       }
       .value {
-        color: #333;
+        color: #2daae1;
         margin-left: 10px;
+        font-weight: 500;
       }
       .footer {
         text-align: center;
-        margin-top: 30px;
-        color: #888;
-        font-size: 0.9em;
-      }
-      .button {
-        display: inline-block;
-        padding: 12px 30px;
-        background-color: #4caf50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        margin: 20px 0;
+        margin-top: 32px;
+        color: #6b7c93;
+        font-size: 0.875em;
       }
     </style>
   </head>
   <body>
-    <div class='header'>
-      <h1>🚗 Réservation Confirmée !</h1>
+    <div style='text-align: center; padding-bottom: 32px;'>
+      <div style='display: inline-flex; align-items: center;'>
+        <div
+          style='background-color: #2DAAE1; border-radius: 8px; padding: 8px;'
+        >
+          <!-- Car Icon Placeholder -->
+          <img
+            src='https://img.icons8.com/ios-filled/50/ffffff/car.png'
+            alt='Car'
+            width='28'
+            height='28'
+            style='display: block;'
+          />
+        </div>
+        <div style='padding-left: 10px;'>
+          <span
+            class='heading'
+            style="font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; color: #0E2A3F;"
+          >
+            Drive<span style='color: #2DAAE1;'>BnB</span>
+          </span>
+        </div>
+      </div>
     </div>
 
     <div class='content'>
       <p>Bonjour,</p>
 
-      <p>Votre réservation a été confirmée avec succès. Nous sommes ravis de vous compter parmi nos
-        clients !</p>
+      <p>Votre réservation a été confirmée avec succès. Nous sommes ravis de
+        vous compter parmi nos clients !</p>
 
       <div class='booking-details'>
-        <h2 style='margin-top: 0; color: #4CAF50;'>Détails de votre réservation</h2>
+        <h2 style='margin-top: 0; color: #0E2A3F;'>Détails de votre réservation</h2>
 
         <div class='detail-row'>
           <span class='label'>Numéro de réservation:</span>
@@ -108,12 +114,21 @@
         {{/if}}
       </div>
 
-      <p>Vous recevrez un autre email avec les détails de prise en charge du véhicule quelques jours
-        avant votre date de début.</p>
+      <p>Vous recevrez un autre email avec les détails de prise en charge du
+        véhicule quelques jours avant votre date de début.</p>
 
       <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
 
       <p>Merci de nous faire confiance et bon voyage !</p>
+
+      <div style='text-align: center; padding: 0 40px 32px 40px;'>
+        <a
+          href='http://localhost:3001/bookings/{{bookingId}}'
+          style="display: inline-block; background-color: #2DAAE1; color: #FFFFFF; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; text-decoration: none; padding: 16px 40px; border-radius: 12px;"
+        >
+          Voir les détails de ma réservation
+        </a>
+      </div>
 
       <p style='margin-top: 30px;'>
         Cordialement,<br />
