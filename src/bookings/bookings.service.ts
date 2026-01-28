@@ -2,6 +2,7 @@ import { Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { BookingCreatedEvent } from './events/booking-created.event';
@@ -21,7 +22,6 @@ export class BookingsService {
       ...createBookingDto,
       status: BookingStatus.PENDING,
       vehicle: { id: createBookingDto.vehicleId },
-      user: { id: 'd3eebc99-9c0b-4ef8-bb6d-6bb9bd380a14' }, // Temporary hardcoded user ID for testing purpose
     });
     const isBookingSuccessfullyCreated = await this.bookingRepository.save(booking);
 
@@ -33,20 +33,20 @@ export class BookingsService {
     return pendingBooking;
   }
 
-  findAll(query: BookingsFilterParamsDto) {
-    const whereConditions = { status: query.status };
+  async findAll(query: BookingsFilterParamsDto) {
+    const whereConditions = { status: query.status, ownerId: query.userId };
 
     return this.bookingRepository.find({
       where: whereConditions,
       order: { updatedAt: query.order },
-      relations: ['vehicle', 'user'],
+      relations: ['vehicle'],
     });
   }
 
   async findOne(id: string) {
     const booking = await this.bookingRepository.findOneOrFail({
       where: { id },
-      relations: ['vehicle', 'user'],
+      relations: ['vehicle'],
     });
 
     return booking;

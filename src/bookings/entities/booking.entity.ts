@@ -35,6 +35,13 @@ export class Booking {
   @Column({ type: 'text', nullable: true })
   notes?: string;
 
+  @Column({
+    name: 'owner_id',
+    type: 'varchar',
+    default: 'user_38tons5SwaqzxPZSc6kBBuKwYL5',
+  })
+  ownerId: string;
+
   @ManyToOne(() => Vehicle, (vehicle) => vehicle.bookings, {
     nullable: false,
   })

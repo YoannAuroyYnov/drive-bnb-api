@@ -22,6 +22,10 @@ export class CreateBookingDto {
   endDate: Date;
 
   @IsString()
+  @IsNotEmpty()
+  ownerId: string;
+
+  @IsString()
   @IsOptional()
   notes?: string;
 }
