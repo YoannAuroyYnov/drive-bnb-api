@@ -4,9 +4,10 @@ import { VehiclesService } from './vehicles.service';
 import { VehiclesController } from './vehicles.controller';
 import { AuthModule } from 'src/auth/auth.module';
 import { Vehicle } from './entities/vehicle.entity';
+import { Booking } from '../bookings/entities/booking.entity';
 
 @Module({
-  imports: [AuthModule, TypeOrmModule.forFeature([Vehicle])],
+  imports: [AuthModule, TypeOrmModule.forFeature([Vehicle, Booking])],
   controllers: [VehiclesController],
   providers: [VehiclesService],
 })

@@ -3,24 +3,52 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Vehicle } from './entities/vehicle.entity';
 import { VehiclesFilterParamsDto } from './dto/vehicle-filter-params.dto';
+import { Booking, BookingStatus } from '../bookings/entities/booking.entity';
 
 @Injectable()
 export class VehiclesService {
   constructor(
     @InjectRepository(Vehicle)
     private vehicleRepository: Repository<Vehicle>,
+    @InjectRepository(Booking)
+    private bookingRepository: Repository<Booking>,
   ) {}
 
   async findAll(query?: VehiclesFilterParamsDto) {
-    const whereConditions = {};
-    if (query) {
-      whereConditions['vehicleType'] = { name: query.type };
-      // Add date range filtering logic here if applicable
+    const queryBuilder = this.vehicleRepository.createQueryBuilder('vehicle');
+
+    // Toujours charger la relation vehicleType
+    queryBuilder.leftJoinAndSelect('vehicle.vehicleType', 'vehicleType');
+
+    // Exclude vehicles that are booked in the given date range
+    if (query?.from && query?.to) {
+      const bookedVehicleIds = await this.bookingRepository
+        .createQueryBuilder('booking')
+        .select('booking.vehicle_id')
+        .where('booking.start_date < :to', { to: new Date(query.to) })
+        .andWhere('booking.end_date > :from', { from: new Date(query.from) })
+        .andWhere('booking.status IN (:...statuses)', {
+          statuses: [BookingStatus.CONFIRMED, BookingStatus.PENDING],
+        })
+        .getRawMany();
+
+      const vehicleIds = bookedVehicleIds.map((b: { vehicle_id: string }) => b.vehicle_id);
+
+      if (vehicleIds.length > 0) {
+        queryBuilder.andWhere('vehicle.id NOT IN (:...vehicleIds)', {
+          vehicleIds,
+        });
+      }
     }
-    return await this.vehicleRepository.find({
-      where: whereConditions,
-      order: { updatedAt: query?.order || 'DESC' },
-    });
+
+    // Filter by vehicle type
+    if (query?.type) {
+      queryBuilder.andWhere('vehicleType.name = :type', { type: query.type });
+    }
+
+    queryBuilder.orderBy('vehicle.updatedAt', query?.order || 'DESC');
+
+    return await queryBuilder.getMany();
   }
 
   async findOne(id: string) {
