@@ -1,36 +1,51 @@
+import { clerkClient } from '@clerk/clerk-sdk-node';
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { EventListener } from './event-listener.base';
 import { EmailsService } from '../emails.service';
 import { BookingCreatedEvent } from '../../bookings/events/booking-created.event';
+import { BookingsService } from '../../bookings/bookings.service';
 
 @Injectable()
 export class BookingCreatedListener extends EventListener {
   constructor(
     emailsService: EmailsService,
-    // private readonly bookingRepository: BookingRepository,
+    private readonly bookingService: BookingsService,
   ) {
     super(emailsService);
   }
 
   @OnEvent('booking.created')
   async handle(event: BookingCreatedEvent) {
-    const booking = {
-      id: event.bookingId,
-      user: { email: 'user@example.com' },
-      vehicle: { model: 'Aventador' },
-      startDate: new Date('2025-03-06'),
-      endDate: new Date('2025-03-10'),
-    }; // await this.bookingRepository.findById(event.bookingId).includeUserAndVehicle();
+    const booking = await this.bookingService.findOne(event.bookingId);
+
+    // Récupérer l'utilisateur Clerk qui fait la réservation
+    const clerkUser = await clerkClient.users.getUser(event.clerkUserId);
 
     const context = {
       bookingId: booking.id,
       vehicleName: booking.vehicle.model,
-      startDate: booking.startDate,
-      endDate: booking.endDate,
+      startDate: new Date(booking.startDate).toLocaleDateString('fr-FR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      endDate: new Date(booking.endDate).toLocaleDateString('fr-FR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      // totalPrice: booking.totalPrice, // To be added later
       subject: 'Votre réservation est confirmée !',
     };
 
-    await this.sendEmail(booking.user.email, 'booking-confirmation', context, context.subject);
+    await this.sendEmail(
+      clerkUser.emailAddresses[0].emailAddress,
+      'booking-confirmation',
+      context,
+      context.subject,
+    );
   }
 }

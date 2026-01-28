@@ -22,11 +22,11 @@ export class SmtpEmailProvider {
   async sendMail(options: {
     to: string;
     subject: string;
-    text: string;
+    html: string;
     from?: string;
   }): Promise<SMTPTransport.SentMessageInfo> {
-    options.from =
-      'DriveBnB <' + options.from || this.configService.get<string>('NODEMAILER_USER') + '>';
+    const fromEmail = options.from || this.configService.get<string>('NODEMAILER_USER');
+    options.from = `DriveBnB <${fromEmail}>`;
 
     try {
       const info = (await this.transporter.sendMail(options)) as SMTPTransport.SentMessageInfo;

@@ -1,0 +1,129 @@
+<html lang='fr'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Confirmation de réservation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #4caf50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px 5px 0 0;
+      }
+      .content {
+        background-color: #f9f9f9;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 5px 5px;
+      }
+      .booking-details {
+        background-color: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+        border: 1px solid #e0e0e0;
+      }
+      .detail-row {
+        margin: 10px 0;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+      .label {
+        font-weight: bold;
+        color: #555;
+      }
+      .value {
+        color: #333;
+        margin-left: 10px;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #888;
+        font-size: 0.9em;
+      }
+      .button {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='header'>
+      <h1>🚗 Réservation Confirmée !</h1>
+    </div>
+
+    <div class='content'>
+      <p>Bonjour,</p>
+
+      <p>Votre réservation a été confirmée avec succès. Nous sommes ravis de vous compter parmi nos
+        clients !</p>
+
+      <div class='booking-details'>
+        <h2 style='margin-top: 0; color: #4CAF50;'>Détails de votre réservation</h2>
+
+        <div class='detail-row'>
+          <span class='label'>Numéro de réservation:</span>
+          <span class='value'>{{bookingId}}</span>
+        </div>
+
+        <div class='detail-row'>
+          <span class='label'>Véhicule:</span>
+          <span class='value'>{{vehicleName}}</span>
+        </div>
+
+        <div class='detail-row'>
+          <span class='label'>Date de début:</span>
+          <span class='value'>{{startDate}}</span>
+        </div>
+
+        <div class='detail-row'>
+          <span class='label'>Date de fin:</span>
+          <span class='value'>{{endDate}}</span>
+        </div>
+
+        {{#if totalPrice}}
+          <div class='detail-row'>
+            <span class='label'>Prix total:</span>
+            <span class='value'>{{totalPrice}} €</span>
+          </div>
+        {{/if}}
+      </div>
+
+      <p>Vous recevrez un autre email avec les détails de prise en charge du véhicule quelques jours
+        avant votre date de début.</p>
+
+      <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+
+      <p>Merci de nous faire confiance et bon voyage !</p>
+
+      <p style='margin-top: 30px;'>
+        Cordialement,<br />
+        <strong>L'équipe Drive BnB</strong>
+      </p>
+    </div>
+
+    <div class='footer'>
+      <p>Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
+      <p>&copy; 2026 Drive BnB. Tous droits réservés.</p>
+    </div>
+  </body>
+</html>

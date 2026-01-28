@@ -4,7 +4,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
-// import { BookingCreatedEvent } from './events/booking-created.event';
+import { BookingCreatedEvent } from './events/booking-created.event';
 import { Booking, BookingStatus } from './entities/booking.entity';
 import { BookingsFilterParamsDto } from './dto/bookings-filter-params.dto';
 
@@ -24,9 +24,6 @@ export class BookingsService {
       user: { id: 'd3eebc99-9c0b-4ef8-bb6d-6bb9bd380a14' }, // Temporary hardcoded user ID for testing purpose
     });
     const isBookingSuccessfullyCreated = await this.bookingRepository.save(booking);
-
-    // if (isBookingSuccessfullyCreated)
-    //   this.eventEmitter.emit('booking.created', new BookingCreatedEvent(booking.id));
 
     const pendingBooking = await this.bookingRepository.findOneOrFail({
       where: { id: isBookingSuccessfullyCreated.id },
@@ -55,10 +52,15 @@ export class BookingsService {
     return booking;
   }
 
-  async confirm(id: string) {
+  async confirm(id: string, userId: string) {
     const booking = await this.bookingRepository.findOneByOrFail({ id });
     booking.status = BookingStatus.CONFIRMED;
-    await this.bookingRepository.save(booking);
+
+    if (booking.status === BookingStatus.CONFIRMED) {
+      this.eventEmitter.emit('booking.created', new BookingCreatedEvent(booking.id, userId));
+
+      await this.bookingRepository.save(booking);
+    }
     return booking;
   }
 

@@ -15,7 +15,8 @@ import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { BookingsFilterParamsDto } from './dto/bookings-filter-params.dto';
 import { ClerkAuthGuard } from 'src/auth/guards/clerk-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { ClerkUser, RolesGuard } from 'src/auth/guards/roles.guard';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 
 @Controller('bookings')
 @UseGuards(ClerkAuthGuard, RolesGuard)
@@ -28,8 +29,8 @@ export class BookingsController {
   }
 
   @Post('confirm/:id')
-  confirm(@Param('id', ParseUUIDPipe) id: string) {
-    return this.bookingsService.confirm(id);
+  confirm(@Param('id', ParseUUIDPipe) id: string, @CurrentUser() user: ClerkUser) {
+    return this.bookingsService.confirm(id, user.userId);
   }
 
   @Get()

@@ -10,7 +10,7 @@ export class EmailsService {
   private readonly templatesPath: string;
 
   constructor(private readonly emailProvider: SmtpEmailProvider) {
-    this.templatesPath = path.join(__dirname, 'templates');
+    this.templatesPath = path.join(process.cwd(), 'src', 'emails', 'templates');
   }
 
   async sendTemplateEmail(
@@ -33,7 +33,7 @@ export class EmailsService {
       await this.emailProvider.sendMail({
         to,
         subject: subject || 'Notification',
-        text: html,
+        html: html,
       });
 
       this.logger.log(`Email sent to ${to} using template ${templateName}`);
