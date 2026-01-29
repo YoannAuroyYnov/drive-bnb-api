@@ -8,13 +8,13 @@ import {
 } from 'typeorm';
 import { Vehicle } from '../../vehicles/entities/vehicle.entity';
 
-export enum userRoles {
+export enum ownerRoles {
   STANDARD = 'standard',
   OWNER = 'owner',
   ADMIN = 'admin',
 }
-@Entity('users')
-export class User {
+@Entity('owners')
+export class Owner {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -49,11 +49,11 @@ export class User {
 
   @Column({
     type: 'enum',
-    enum: userRoles,
+    enum: ownerRoles,
     array: true,
-    default: [userRoles.STANDARD],
+    default: [ownerRoles.STANDARD],
   })
-  roles: userRoles[];
+  roles: ownerRoles[];
 
   @OneToMany(() => Vehicle, (vehicle) => vehicle.owner)
   vehicles: Vehicle[];

@@ -1,12 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class SeedUsers1768933764321 implements MigrationInterface {
-  name = 'SeedUsers1768933764321';
-  userId = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-
+export class SeedOwners1768933764321 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO "users" ("id", "email", "first_name", "last_name", "phone", "rating", "reviews_count") VALUES
+      INSERT INTO "owners" ("id", "email", "first_name", "last_name", "phone", "rating", "reviews_count") VALUES
       -- Fernando Alonso
       ('b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'fernando.alonso@renault-racing.fr', 'Fernando', 'Alonso', '+34612345678', 4.9, 189),
       
@@ -51,6 +48,6 @@ export class SeedUsers1768933764321 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('TRUNCATE TABLE "users" CASCADE');
+    await queryRunner.query('TRUNCATE TABLE "owners" CASCADE');
   }
 }

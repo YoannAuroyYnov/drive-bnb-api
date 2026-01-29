@@ -7,7 +7,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { userRoles } from '../entities/user.entity';
+import { ownerRoles } from '../entities/owner.entity';
 
 export class CreateUserDto {
   @IsEmail()
@@ -32,7 +32,7 @@ export class CreateUserDto {
   @IsOptional()
   is2FAEnabled?: boolean;
 
-  @IsEnum(userRoles, { each: true })
+  @IsEnum(ownerRoles, { each: true })
   @IsOptional()
-  roles?: userRoles[];
+  roles?: ownerRoles[];
 }

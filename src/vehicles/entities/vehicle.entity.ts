@@ -9,23 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { VehicleTypes } from './vehicle-types.entity';
-import { User } from '../../users/entities/user.entity';
+import { Owner } from '../../users/entities/owner.entity';
 import { Booking } from '../../bookings/entities/booking.entity';
-
-// export enum FuelType {
-//   GASOLINE = 'gasoline',
-//   DIESEL = 'diesel',
-//   ELECTRIC = 'electric',
-//   HYBRID = 'hybrid',
-//   JET_FUEL = 'jet_fuel',
-//   HYDROGEN = 'hydrogen',
-//   NGV = 'ngv',
-//   LPG = 'lpg',
-//   BIOETHANOL = 'bioethanol',
-//   BIODIESEL = 'biodiesel',
-//   EFUEL = 'efuel',
-// }
-// To be updated later with a proper enum management
 
 interface VehicleDetails {
   requiredLicense?: string;
@@ -109,11 +94,11 @@ export class Vehicle {
   @JoinColumn({ name: 'vehicle_type_id' })
   vehicleType: VehicleTypes;
 
-  @ManyToOne(() => User, (owner) => owner.vehicles, {
+  @ManyToOne(() => Owner, (owner) => owner.vehicles, {
     nullable: false,
   })
   @JoinColumn({ name: 'owner_id' })
-  owner: User;
+  owner: Owner;
 
   @OneToMany(() => Booking, (booking) => booking.vehicle)
   @JoinColumn()

@@ -5,7 +5,7 @@ export class SeedBookings1768936000000 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO "bookings" ("id", "start_date", "end_date", "status", "notes", "vehicle_id", "user_id", "created_at", "updated_at") VALUES
+      INSERT INTO "bookings" ("id", "start_date", "end_date", "status", "notes", "vehicle_id", "created_at", "updated_at") VALUES
       -- PENDING: Rambo réserve le MH-6 Little Bird
       (
         'a1111111-1111-4111-a111-111111111111',
@@ -14,7 +14,6 @@ export class SeedBookings1768936000000 implements MigrationInterface {
         'pending',
         'Mission de reconnaissance en attente de confirmation.',
         'c586e47b-95aa-4067-a1b3-55532a76d12a',
-        'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         NOW(),
         NOW()
       ),
@@ -27,7 +26,6 @@ export class SeedBookings1768936000000 implements MigrationInterface {
         'draft',
         'Raid à travers les Appalaches - à confirmer selon météo.',
         '03c51c22-a2fb-45b8-b91a-c2fa96c6bb39',
-        'e5eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
         NOW(),
         NOW()
       ),
@@ -40,7 +38,6 @@ export class SeedBookings1768936000000 implements MigrationInterface {
         'confirmed',
         'Tour du Japon confirmé. Rendez-vous à Tokyo.',
         'cbe1848b-1f32-4f50-af09-a4f0bba6d297',
-        'f6eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
         NOW(),
         NOW()
       ),
@@ -53,7 +50,6 @@ export class SeedBookings1768936000000 implements MigrationInterface {
         'cancelled',
         'Changement de programme. Vol annulé.',
         '8ab2963c-cfa0-402b-8394-70a96e78b373',
-        'f5eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
         NOW(),
         NOW()
       ),
@@ -66,7 +62,6 @@ export class SeedBookings1768936000000 implements MigrationInterface {
         'completed',
         'Rallye Dakar simulation terminé avec succès. Véhicule en excellent état.',
         '366fdc13-a3ed-44ce-aa63-c0b71f7031a3',
-        'a6eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
         NOW(),
         NOW()
       )

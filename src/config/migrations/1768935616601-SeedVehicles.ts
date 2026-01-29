@@ -233,7 +233,7 @@ export class SeedVehicles1768935616601 implements MigrationInterface {
         true,
         'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         '{"requiredLicense": "Licence pilote hélicoptère", "fuelType": "Kérosène Jet A", "seats": 4, "mileage": 15000, "description": "Hélicoptère léger militaire compact, utilisé pour reconnaissance et transport rapide", "maxPassengers": 6, "maxRangeKm": 430}',
-        'Washington, DC',
+        'Bowie, US',
         4.0,
         1,
         '/vehicles/mh-6.webp'
