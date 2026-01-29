@@ -46,7 +46,7 @@ export class BookingsService {
   async findOne(id: string) {
     const booking = await this.bookingRepository.findOneOrFail({
       where: { id },
-      relations: ['vehicle'],
+      relations: ['vehicle', 'vehicle.owner'],
     });
 
     return booking;

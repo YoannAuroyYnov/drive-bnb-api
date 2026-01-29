@@ -7,7 +7,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Vehicle } from '../../vehicles/entities/vehicle.entity';
-import { Booking } from '../../bookings/entities/booking.entity';
 
 export enum userRoles {
   STANDARD = 'standard',
@@ -58,9 +57,6 @@ export class User {
 
   @OneToMany(() => Vehicle, (vehicle) => vehicle.owner)
   vehicles: Vehicle[];
-
-  @OneToMany(() => Booking, (booking) => booking.user)
-  bookings: Booking[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

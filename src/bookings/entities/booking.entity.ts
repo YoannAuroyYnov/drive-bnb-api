@@ -1,4 +1,5 @@
 import {
+  AfterLoad,
   Column,
   CreateDateColumn,
   Entity,
@@ -7,8 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Expose } from 'class-transformer';
 import { Vehicle } from '../../vehicles/entities/vehicle.entity';
-import { User } from '../../users/entities/user.entity';
 
 export enum BookingStatus {
   PENDING = 'pending',
@@ -42,17 +43,56 @@ export class Booking {
   })
   ownerId: string;
 
+  @Expose()
+  duration: number;
+
+  @AfterLoad()
+  calculateDuration() {
+    const diff = this.endDate.getTime() - this.startDate.getTime();
+    this.duration = Math.round(diff / (1000 * 60 * 60 * 24));
+  }
+
+  @Expose()
+  fees: number;
+
+  @AfterLoad()
+  calculateFees() {
+    if (!this.vehicle) return;
+    this.fees = (this.duration < 20 ? this.duration : 20) * (this.vehicle.dailyPrice * 0.05); // 5% fees per day max 20 days
+  }
+
+  @Expose()
+  insurance: number;
+
+  @AfterLoad()
+  calculateInsurance() {
+    if (!this.vehicle) return;
+    this.insurance = this.duration * (this.vehicle.dailyPrice * 0.038); // 3.8% insurance per day
+  }
+
+  @Expose()
+  subTotal: number;
+
+  @AfterLoad()
+  calculateSubTotal() {
+    if (!this.vehicle) return;
+    this.subTotal = this.duration * this.vehicle.dailyPrice;
+  }
+
+  @Expose()
+  totalPrice: number;
+
+  @AfterLoad()
+  calculateTotalPrice() {
+    if (!this.vehicle) return;
+    this.totalPrice = this.duration * this.vehicle.dailyPrice + this.insurance + this.fees;
+  }
+
   @ManyToOne(() => Vehicle, (vehicle) => vehicle.bookings, {
     nullable: false,
   })
   @JoinColumn({ name: 'vehicle_id' })
   vehicle: Vehicle;
-
-  @ManyToOne(() => User, (user) => user.bookings, {
-    nullable: false,
-  })
-  @JoinColumn({ name: 'user_id' })
-  user: User;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
