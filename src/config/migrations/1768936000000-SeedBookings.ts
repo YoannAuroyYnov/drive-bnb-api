@@ -6,14 +6,14 @@ export class SeedBookings1768936000000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       INSERT INTO "bookings" ("id", "start_date", "end_date", "status", "notes", "vehicle_id", "created_at", "updated_at") VALUES
-      -- PENDING: Rambo réserve le MH-6 Little Bird
+      -- PENDING: Rambo réserve la Vega Missyl
       (
         'a1111111-1111-4111-a111-111111111111',
         '2026-02-10 10:00:00',
         '2026-02-15 18:00:00',
         'pending',
         'Mission de reconnaissance en attente de confirmation.',
-        'c586e47b-95aa-4067-a1b3-55532a76d12a',
+        'ce635e87-02ed-4234-8985-4575de20bfeb',
         NOW(),
         NOW()
       ),

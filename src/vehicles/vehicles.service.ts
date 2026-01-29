@@ -52,7 +52,10 @@ export class VehiclesService {
   }
 
   async findOne(id: string) {
-    return await this.vehicleRepository.findOneBy({ id });
+    return await this.vehicleRepository.findOne({
+      where: { id },
+      relations: { vehicleType: true, owner: true },
+    });
   }
 
   async findFeatured() {
